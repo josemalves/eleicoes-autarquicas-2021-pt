@@ -14,8 +14,10 @@ except ImportError:
     print("ERRO: pip install pandas openpyxl")
     exit(1)
 
-SQLITE_DB = "portugal_geoms.db"
-CNE_FOLDER = "2021al_mapa_oficial"
+# Caminhos relativos à localização deste script (funciona corra-se de onde correr)
+_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SQLITE_DB = os.path.join(_BASE_DIR, "..", "db", "elections.db")
+CNE_FOLDER = os.path.join(_BASE_DIR, "2021al_mapa_oficial")
 
 PARTIDOS = ['A', 'B.E.', 'CDS-PP', 'CH', 'E', 'IL', 'JPP', 'L', 'MAS', 'MPT',
             'NC', 'PAN', 'PCTP/MRPP', 'PDR', 'PPD/PSD', 'PPM', 'PS', 'PTP',
@@ -285,14 +287,15 @@ def main():
     print("ETL - Eleições Autárquicas 2021")
     print("="*60)
     
-    SQL_DUMP = "portugal_geoms_dump.sql"
-    
+    SQL_DUMP = os.path.join(_BASE_DIR, "portugal_geoms_dump.sql")
+
     # Criar BD geográfica se não existir
     if not os.path.exists(SQLITE_DB):
         if not os.path.exists(SQL_DUMP):
             print(f"ERRO: {SQL_DUMP} não encontrado")
             return
         print("\n1. Criando base de dados geográfica...")
+        os.makedirs(os.path.dirname(SQLITE_DB), exist_ok=True)
         conn = sqlite3.connect(SQLITE_DB)
         with open(SQL_DUMP, "r", encoding="utf-8") as f:
             conn.executescript(f.read())

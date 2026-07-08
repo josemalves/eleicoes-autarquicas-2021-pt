@@ -1,20 +1,27 @@
-# Eleições Autárquicas 2021 - Visualizador Interativo
+# Eleições Autárquicas 2021 — Visualizador Interativo
 
-Sistema de visualização dos resultados das Eleições Autárquicas Portuguesas de 2021, com mapa interativo e análise de dados.
+Sistema de visualização dos resultados das Eleições Autárquicas Portuguesas de
+2021, com mapa interativo e análise de dados (Python + SQLite + Tkinter).
 
 ## Grupo
 
 - José Alves
 - Mariana Gomes
 
+## Capturas de ecrã
+
+| | |
+|---|---|
+| ![Distritos](docs/screenshot_1.png) | ![Municípios](docs/screenshot_2.png) |
+| ![Freguesias](docs/screenshot_3.png) | ![Resultados](docs/screenshot_4.png) |
 
 ## Requisitos
 
 - Python 3.8+
-- Bibliotecas: `pandas`, `openpyxl`, `matplotlib`
+- Bibliotecas: `pandas`, `openpyxl`, `matplotlib` (e `tkinter`, incluído na maioria das instalações Python)
 
 ```bash
-pip install pandas openpyxl matplotlib
+pip install -r requirements.txt
 ```
 
 ## Estrutura do Projeto
@@ -22,41 +29,54 @@ pip install pandas openpyxl matplotlib
 ```
 projeto/
 ├── README.md
+├── LICENSE
+├── requirements.txt
 ├── db/
-│   ├── elections.db          # Base de dados SQLite
-│   └── create_tables.sql     # DDL - Schema da BD
+│   ├── elections.db            # Base de dados SQLite (já gerada)
+│   └── create_tables.sql       # DDL — schema da BD
 ├── etl/
-│   ├── etl_eleicoes.py       # Script ETL principal
-│   └── portugal_geoms_dump.sql  # Geometrias WKT
-    └── 2021al_mapa_oficial/   # Dados CNE (Excel)
-            ├── mapa_1_resultados.xlsx
-            ├── mapa_2_perc_mandatos.xlsx
-            ├── mapa_3_eleitos.xlsx
-            └── mapa_anexo.xlsx
+│   ├── etl_eleicoes.py         # Script ETL principal
+│   └── portugal_geoms_dump.sql # Geometrias WKT de Portugal
 ├── app/
-│   └── gui.py                # Aplicação GUI principal
-├── docs/
-│   ├── ER_diagram.md         # Diagrama Entidade-Relação
-│   ├── relatorio.pdf         # Relatório do projeto
-│   ├── slides.pdf            # Slides da apresentação
-│   └── screenshots/          # Capturas de ecrã
-
-    
+│   └── gui.py                  # Aplicação GUI principal
+└── docs/
+    ├── ER_diagram.svg          # Diagrama Entidade-Relação
+    ├── er_diagram.drawio.png   # Diagrama ER (imagem)
+    └── screenshot_1..4.png     # Capturas de ecrã
 ```
 
 ## Como Executar
 
-### Passo 1: Preparar os dados
+A base de dados (`db/elections.db`) já vem gerada, por isso podes correr a
+aplicação diretamente (Passo 3). Os Passos 1 e 2 só são necessários para
+reconstruir a BD de raiz a partir dos dados oficiais.
 
-Descarregar os dados oficiais da CNE:
+### Passo 3 (rápido): Executar a aplicação
+
 ```bash
-wget https://www.cne.pt/sites/default/files/dl/2021al_mapa_oficial.zip
-unzip 2021al_mapa_oficial.zip -d data/
+cd app/
+python gui.py
 ```
 
-Mover a pasta para o diretório etl/, para que o programa corra naturalmente.
+### Passo 1: Preparar os dados (opcional — reconstruir a BD)
 
-### Passo 2: Executar o ETL
+Descarregar os dados oficiais da CNE e colocá-los em `etl/2021al_mapa_oficial/`:
+
+```bash
+wget https://www.cne.pt/sites/default/files/dl/2021al_mapa_oficial.zip
+unzip 2021al_mapa_oficial.zip -d etl/2021al_mapa_oficial/
+```
+
+A pasta deve conter:
+```
+etl/2021al_mapa_oficial/
+├── mapa_1_resultados.xlsx
+├── mapa_2_perc_mandatos.xlsx
+├── mapa_3_eleitos.xlsx
+└── mapa_anexo.xlsx
+```
+
+### Passo 2: Executar o ETL (opcional)
 
 ```bash
 cd etl/
@@ -64,7 +84,7 @@ python etl_eleicoes.py
 ```
 
 O script irá:
-- Criar a base de dados SQLite (`elections.db`)
+- Criar a base de dados SQLite em `db/elections.db`
 - Carregar as geometrias de Portugal
 - Processar os dados eleitorais do Excel
 - Popular todas as tabelas
@@ -80,14 +100,6 @@ ETL - Eleições Autárquicas 2021
 ============================================================
 ETL concluído!
 ============================================================
-```
-
-### Passo 3: Executar a aplicação
-
-```bash
-cd ..
-cd app/
-python gui.py
 ```
 
 ## Funcionalidades
@@ -112,29 +124,35 @@ python gui.py
 
 ```
 districts          - 29 distritos/ilhas com geometrias
-municipalities     - 308 municípios com geometrias  
-parishes           - 3976 freguesias com geometrias
+municipalities     - 308 municípios com geometrias
+parishes           - freguesias com geometrias
 partidos           - 21 partidos políticos
 orgaos             - 3 órgãos (CM, AM, AF)
-coligacoes         - 408 coligações únicas
-resultados         - Resultados agregados por autarquia
-votos              - Votos por partido/coligação
+coligacoes         - coligações únicas
+resultados         - resultados agregados por autarquia
+votos              - votos por partido/coligação
 ```
+
+Ver o diagrama Entidade-Relação em [`docs/ER_diagram.svg`](docs/ER_diagram.svg).
 
 ## Âmbito dos Dados
 
 - **Órgãos**: Câmara Municipal (CM) e Assembleia de Freguesia (AF)
 - **Geografia**: Portugal completo (continente + ilhas)
-- **Fonte**: CNE - Comissão Nacional de Eleições
+- **Fonte**: CNE — Comissão Nacional de Eleições
 
 ## Limitações Conhecidas
 
-1. Assembleia Municipal (AM) não incluída
-2. 4 freguesias com dados pendentes na fonte original
-3. Geometrias são simplificadas (apenas anel exterior)
+1. Assembleia Municipal (AM) não incluída na visualização
+2. Algumas freguesias com dados pendentes na fonte original
+3. Geometrias simplificadas (apenas anel exterior)
 
 ## Referências
 
-- [CNE - Resultados Oficiais](https://www.cne.pt)
-- [MAI - Portal Eleitoral](https://www.eleicoes.mai.gov.pt/autarquicas2021/)
-- [DGT - CAOP](https://www.dgterritorio.gov.pt/cartografia/cartografia-tematica/caop)
+- [CNE — Resultados Oficiais](https://www.cne.pt)
+- [MAI — Portal Eleitoral](https://www.eleicoes.mai.gov.pt/autarquicas2021/)
+- [DGT — CAOP](https://www.dgterritorio.gov.pt/cartografia/cartografia-tematica/caop)
+
+## Licença
+
+Distribuído sob a licença MIT. Ver [`LICENSE`](LICENSE) para detalhes.
