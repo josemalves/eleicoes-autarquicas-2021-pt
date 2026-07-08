@@ -4,8 +4,8 @@ Sistema de visualização dos resultados das Eleições Autárquicas Portuguesas
 
 ## Grupo
 
-- José Alves - 202510270
-- Mariana Gomes - 202206615 
+- José Alves
+- Mariana Gomes
 
 
 ## Requisitos
