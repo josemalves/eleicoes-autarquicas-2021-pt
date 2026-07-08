@@ -1,0 +1,25 @@
+# Relatório e apresentação (não incluídos no repositório)
+docs/relatorio.pdf
+docs/apresentacao_eleicoes.pdf
+
+# Ficheiros de sistema
+.DS_Store
+Thumbs.db
+
+# Diretório de sessão do Claude Code
+.claude/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# Dados brutos da CNE (descarregar conforme README)
+etl/2021al_mapa_oficial/

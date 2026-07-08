@@ -1,0 +1,225 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <style>
+      .entity { fill: #E8F4FD; stroke: #2E86AB; stroke-width: 2; }
+      .entity-header { fill: #2E86AB; }
+      .text-header { fill: white; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; }
+      .text-field { fill: #333; font-family: Arial, sans-serif; font-size: 12px; }
+      .text-pk { fill: #D63230; font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; }
+      .text-fk { fill: #2E86AB; font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; }
+      .line { stroke: #555; stroke-width: 2; fill: none; }
+      .crow-foot { stroke: #555; stroke-width: 2; fill: none; }
+      .legend-box { fill: #FFF9E6; stroke: #E6B800; stroke-width: 1; }
+      .title { fill: #1a1a6b; font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; }
+      .subtitle { fill: #666; font-family: Arial, sans-serif; font-size: 14px; }
+    </style>
+  </defs>
+  
+  <!-- Título -->
+  <text x="600" y="35" text-anchor="middle" class="title">Diagrama Entidade-Relação</text>
+  <text x="600" y="55" text-anchor="middle" class="subtitle">Eleições Autárquicas 2021 - Base de Dados SQLite</text>
+  
+  <!-- DISTRICTS -->
+  <g transform="translate(50, 100)">
+    <rect class="entity" x="0" y="0" width="180" height="90" rx="5"/>
+    <rect class="entity-header" x="0" y="0" width="180" height="30" rx="5"/>
+    <rect class="entity-header" x="0" y="15" width="180" height="15"/>
+    <text x="90" y="20" text-anchor="middle" class="text-header">districts</text>
+    <text x="10" y="50" class="text-field">name</text>
+    <text x="130" y="50" class="text-pk">PK</text>
+    <text x="10" y="70" class="text-field">geom</text>
+  </g>
+  
+  <!-- MUNICIPALITIES -->
+  <g transform="translate(50, 250)">
+    <rect class="entity" x="0" y="0" width="180" height="110" rx="5"/>
+    <rect class="entity-header" x="0" y="0" width="180" height="30" rx="5"/>
+    <rect class="entity-header" x="0" y="15" width="180" height="15"/>
+    <text x="90" y="20" text-anchor="middle" class="text-header">municipalities</text>
+    <text x="10" y="50" class="text-field">name</text>
+    <text x="130" y="50" class="text-pk">PK</text>
+    <text x="10" y="70" class="text-field">district_island</text>
+    <text x="130" y="70" class="text-pk">PK</text>
+    <text x="155" y="70" class="text-fk">FK</text>
+    <text x="10" y="90" class="text-field">geom</text>
+  </g>
+  
+  <!-- PARISHES -->
+  <g transform="translate(50, 420)">
+    <rect class="entity" x="0" y="0" width="180" height="130" rx="5"/>
+    <rect class="entity-header" x="0" y="0" width="180" height="30" rx="5"/>
+    <rect class="entity-header" x="0" y="15" width="180" height="15"/>
+    <text x="90" y="20" text-anchor="middle" class="text-header">parishes</text>
+    <text x="10" y="50" class="text-field">name</text>
+    <text x="130" y="50" class="text-pk">PK</text>
+    <text x="10" y="70" class="text-field">municipality_name</text>
+    <text x="130" y="70" class="text-pk">PK</text>
+    <text x="155" y="70" class="text-fk">FK</text>
+    <text x="10" y="90" class="text-field">district_island</text>
+    <text x="155" y="90" class="text-fk">FK</text>
+    <text x="10" y="110" class="text-field">geom</text>
+  </g>
+  
+  <!-- ORGAOS -->
+  <g transform="translate(350, 100)">
+    <rect class="entity" x="0" y="0" width="160" height="110" rx="5"/>
+    <rect class="entity-header" x="0" y="0" width="160" height="30" rx="5"/>
+    <rect class="entity-header" x="0" y="15" width="160" height="15"/>
+    <text x="80" y="20" text-anchor="middle" class="text-header">orgaos</text>
+    <text x="10" y="50" class="text-field">id</text>
+    <text x="120" y="50" class="text-pk">PK</text>
+    <text x="10" y="70" class="text-field">sigla</text>
+    <text x="120" y="70" class="text-fk">UK</text>
+    <text x="10" y="90" class="text-field">nome</text>
+  </g>
+  
+  <!-- PARTIDOS -->
+  <g transform="translate(350, 250)">
+    <rect class="entity" x="0" y="0" width="160" height="110" rx="5"/>
+    <rect class="entity-header" x="0" y="0" width="160" height="30" rx="5"/>
+    <rect class="entity-header" x="0" y="15" width="160" height="15"/>
+    <text x="80" y="20" text-anchor="middle" class="text-header">partidos</text>
+    <text x="10" y="50" class="text-field">id</text>
+    <text x="120" y="50" class="text-pk">PK</text>
+    <text x="10" y="70" class="text-field">sigla</text>
+    <text x="120" y="70" class="text-fk">UK</text>
+    <text x="10" y="90" class="text-field">nome</text>
+  </g>
+  
+  <!-- COLIGACOES -->
+  <g transform="translate(350, 400)">
+    <rect class="entity" x="0" y="0" width="160" height="150" rx="5"/>
+    <rect class="entity-header" x="0" y="0" width="160" height="30" rx="5"/>
+    <rect class="entity-header" x="0" y="15" width="160" height="15"/>
+    <text x="80" y="20" text-anchor="middle" class="text-header">coligacoes</text>
+    <text x="10" y="50" class="text-field">id</text>
+    <text x="120" y="50" class="text-pk">PK</text>
+    <text x="10" y="70" class="text-field">sigla</text>
+    <text x="10" y="90" class="text-field">nome_completo</text>
+    <text x="10" y="110" class="text-field">municipio</text>
+    <text x="10" y="130" class="text-field">distrito</text>
+  </g>
+  
+  <!-- RESULTADOS -->
+  <g transform="translate(600, 150)">
+    <rect class="entity" x="0" y="0" width="200" height="230" rx="5"/>
+    <rect class="entity-header" x="0" y="0" width="200" height="30" rx="5"/>
+    <rect class="entity-header" x="0" y="15" width="200" height="15"/>
+    <text x="100" y="20" text-anchor="middle" class="text-header">resultados</text>
+    <text x="10" y="50" class="text-field">id</text>
+    <text x="160" y="50" class="text-pk">PK</text>
+    <text x="10" y="70" class="text-field">municipio_nome</text>
+    <text x="170" y="70" class="text-fk">FK</text>
+    <text x="10" y="90" class="text-field">distrito_nome</text>
+    <text x="170" y="90" class="text-fk">FK</text>
+    <text x="10" y="110" class="text-field">freguesia_nome</text>
+    <text x="170" y="110" class="text-fk">FK</text>
+    <text x="10" y="130" class="text-field">orgao_id</text>
+    <text x="170" y="130" class="text-fk">FK</text>
+    <text x="10" y="150" class="text-field">dicofre</text>
+    <text x="10" y="170" class="text-field">inscritos</text>
+    <text x="10" y="190" class="text-field">votantes</text>
+    <text x="10" y="210" class="text-field">brancos, nulos</text>
+  </g>
+  
+  <!-- VOTOS -->
+  <g transform="translate(900, 200)">
+    <rect class="entity" x="0" y="0" width="180" height="150" rx="5"/>
+    <rect class="entity-header" x="0" y="0" width="180" height="30" rx="5"/>
+    <rect class="entity-header" x="0" y="15" width="180" height="15"/>
+    <text x="90" y="20" text-anchor="middle" class="text-header">votos</text>
+    <text x="10" y="50" class="text-field">id</text>
+    <text x="140" y="50" class="text-pk">PK</text>
+    <text x="10" y="70" class="text-field">resultado_id</text>
+    <text x="150" y="70" class="text-fk">FK</text>
+    <text x="10" y="90" class="text-field">tipo</text>
+    <text x="10" y="110" class="text-field">sigla</text>
+    <text x="10" y="130" class="text-field">votos</text>
+  </g>
+  
+  <!-- RELAÇÕES COM PÉ DE GALINHA -->
+  
+  <!-- districts -> municipalities (1:N) -->
+  <line x1="140" y1="190" x2="140" y2="250" class="line"/>
+  <line x1="135" y1="190" x2="140" y2="200" class="line"/>
+  <line x1="145" y1="190" x2="140" y2="200" class="line"/>
+  <!-- Pé de galinha (N) -->
+  <line x1="130" y1="245" x2="140" y2="250" class="crow-foot"/>
+  <line x1="150" y1="245" x2="140" y2="250" class="crow-foot"/>
+  <line x1="140" y1="240" x2="140" y2="250" class="crow-foot"/>
+  
+  <!-- municipalities -> parishes (1:N) -->
+  <line x1="140" y1="360" x2="140" y2="420" class="line"/>
+  <line x1="135" y1="360" x2="140" y2="370" class="line"/>
+  <line x1="145" y1="360" x2="140" y2="370" class="line"/>
+  <!-- Pé de galinha (N) -->
+  <line x1="130" y1="415" x2="140" y2="420" class="crow-foot"/>
+  <line x1="150" y1="415" x2="140" y2="420" class="crow-foot"/>
+  <line x1="140" y1="410" x2="140" y2="420" class="crow-foot"/>
+  
+  <!-- orgaos -> resultados (1:N) -->
+  <line x1="510" y1="155" x2="600" y2="280" class="line"/>
+  <line x1="505" y1="160" x2="510" y2="150" class="line"/>
+  <line x1="515" y1="160" x2="510" y2="150" class="line"/>
+  <!-- Pé de galinha (N) -->
+  <line x1="590" y1="270" x2="600" y2="280" class="crow-foot"/>
+  <line x1="600" y1="268" x2="600" y2="280" class="crow-foot"/>
+  <line x1="610" y1="270" x2="600" y2="280" class="crow-foot"/>
+  
+  <!-- resultados -> votos (1:N) -->
+  <line x1="800" y1="275" x2="900" y2="275" class="line"/>
+  <line x1="800" y1="270" x2="810" y2="275" class="line"/>
+  <line x1="800" y1="280" x2="810" y2="275" class="line"/>
+  <!-- Pé de galinha (N) -->
+  <line x1="890" y1="265" x2="900" y2="275" class="crow-foot"/>
+  <line x1="890" y1="275" x2="900" y2="275" class="crow-foot"/>
+  <line x1="890" y1="285" x2="900" y2="275" class="crow-foot"/>
+  
+  <!-- parishes -> resultados (1:N) - linha curva -->
+  <path d="M 230 480 Q 400 480 600 310" class="line" fill="none"/>
+  <!-- Pé de galinha (N) no destino -->
+  <line x1="590" y1="300" x2="600" y2="310" class="crow-foot"/>
+  <line x1="595" y1="295" x2="600" y2="310" class="crow-foot"/>
+  <line x1="600" y1="298" x2="600" y2="310" class="crow-foot"/>
+  
+  <!-- municipalities -> resultados (1:N) -->
+  <path d="M 230 305 Q 400 305 600 240" class="line" fill="none"/>
+  <!-- Pé de galinha (N) -->
+  <line x1="590" y1="235" x2="600" y2="240" class="crow-foot"/>
+  <line x1="595" y1="228" x2="600" y2="240" class="crow-foot"/>
+  <line x1="600" y1="230" x2="600" y2="240" class="crow-foot"/>
+  
+  <!-- LEGENDA -->
+  <g transform="translate(870, 450)">
+    <rect class="legend-box" x="0" y="0" width="280" height="180" rx="5"/>
+    <text x="140" y="25" text-anchor="middle" class="text-header" style="fill:#333">Legenda</text>
+    
+    <!-- PK -->
+    <text x="20" y="55" class="text-pk">PK</text>
+    <text x="60" y="55" class="text-field">Primary Key (Chave Primária)</text>
+    
+    <!-- FK -->
+    <text x="20" y="80" class="text-fk">FK</text>
+    <text x="60" y="80" class="text-field">Foreign Key (Chave Estrangeira)</text>
+    
+    <!-- UK -->
+    <text x="20" y="105" class="text-fk">UK</text>
+    <text x="60" y="105" class="text-field">Unique Key (Chave Única)</text>
+    
+    <!-- 1:1 -->
+    <line x1="20" y1="125" x2="50" y2="125" class="line"/>
+    <line x1="15" y1="120" x2="20" y2="125" class="line"/>
+    <line x1="15" y1="130" x2="20" y2="125" class="line"/>
+    <text x="60" y="130" class="text-field">Lado "1" da relação</text>
+    
+    <!-- N (pé de galinha) -->
+    <line x1="20" y1="155" x2="50" y2="155" class="line"/>
+    <line x1="40" y1="148" x2="50" y2="155" class="crow-foot"/>
+    <line x1="40" y1="155" x2="50" y2="155" class="crow-foot"/>
+    <line x1="40" y1="162" x2="50" y2="155" class="crow-foot"/>
+    <text x="60" y="160" class="text-field">Lado "N" da relação (muitos)</text>
+  </g>
+  
+  <!-- Nota de cardinalidade -->
+  <text x="600" y="780" text-anchor="middle" class="subtitle">Notação: Crow's Foot (Pé de Galinha) - As linhas com três "pés" indicam o lado "muitos" (N) da relação</text>
+</svg>
